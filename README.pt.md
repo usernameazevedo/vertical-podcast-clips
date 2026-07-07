@@ -5,6 +5,10 @@ postar (Reels / Shorts / TikTok) — com transcrição, seleção de cortes, leg
 **reframe 9:16 que entende multicam**, usando **split-screen empilhado** sempre que a
 edição corta pro plano aberto (os dois na mesa).
 
+<p align="center">
+  <img src="docs/demo.svg" alt="Um crop 9:16 ingênuo cai no centro vazio do plano aberto e perde os dois; o split-screen empilhado coloca o entrevistador em cima e o convidado embaixo, cada um preenchendo metade do quadro." width="840">
+</p>
+
 🇺🇸 _English version: [README.md](README.md)._
 
 ---
@@ -83,6 +87,12 @@ reframe/reframe.py EP01/horizontal/EP01_cut1.mp4 saida_9x16.mp4 \
 **Calibrar:** extraia um frame de um plano aberto, meça a posição horizontal de cada pessoa
 como fração 0–1 e passe em `--split` (e o `--closeup` num frame de close). As posições são
 fixas por set/câmera — calibra uma vez por programa.
+
+## Autor
+
+Feito por **Luis Azevedo** — disponível para freelance / consultoria em edição de podcast,
+vídeo pra redes e pipelines de automação como este.
+📬 [username.azevedo@gmail.com](mailto:username.azevedo@gmail.com)
 
 ## Licença
 

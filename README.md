@@ -5,6 +5,10 @@ Turn a long, **multicam podcast** recording into ready-to-post **vertical short 
 **multicam-aware 9:16 reframe** that uses a **stacked split-screen** whenever the edit
 cuts to a wide two-shot.
 
+<p align="center">
+  <img src="docs/demo.svg" alt="A naive 9:16 crop drops into the empty center of a wide two-shot and misses both speakers; the stacked split-screen puts the interviewer on top and the guest on the bottom, each filling half the frame." width="840">
+</p>
+
 🇧🇷 _Versão em português: [README.pt.md](README.pt.md)._
 
 ---
@@ -119,6 +123,12 @@ frame. Positions are fixed per set/camera, so you calibrate once per show.
 - The pipeline was built for a two-people-across-a-table podcast set; the split geometry
   assumes that layout (one person left, one right in the wide shot).
 - Language-agnostic: set `$LANG` for whisper; the rubric/docs ship in EN + PT.
+
+## Author
+
+Built by **Luis Azevedo** — available for freelance / consulting work on podcast editing,
+short-form video, and automation pipelines like this one.
+📬 [username.azevedo@gmail.com](mailto:username.azevedo@gmail.com)
 
 ## License
 

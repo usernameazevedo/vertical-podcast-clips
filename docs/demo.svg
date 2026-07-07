@@ -1,0 +1,82 @@
+<svg viewBox="0 0 1040 560" width="1040" height="560" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- self-contained card background so it reads on light or dark GitHub themes -->
+  <rect x="0" y="0" width="1040" height="560" rx="16" fill="#ffffff"/>
+  <rect x="1" y="1" width="1038" height="558" rx="15" fill="none" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- title -->
+  <text x="40" y="52" font-size="26" font-weight="700" fill="#1f2328">Multicam-aware 9:16 reframe</text>
+  <text x="40" y="80" font-size="16" fill="#656d76">A naive vertical crop breaks on the wide two-shot.</text>
+
+  <!-- ===================== Panel A: 16:9 wide two-shot ===================== -->
+  <g>
+    <rect x="48" y="150" width="420" height="236" rx="8" fill="#eaeef2" stroke="#afb8c1" stroke-width="2"/>
+    <!-- table -->
+    <line x1="60" y1="360" x2="456" y2="360" stroke="#8c959f" stroke-width="4"/>
+    <!-- interviewer (left) -->
+    <circle cx="140" cy="298" r="26" fill="#57606a"/>
+    <path d="M 100 360 q 40 -46 80 0 Z" fill="#57606a"/>
+    <text x="140" y="378" font-size="13" fill="#57606a" text-anchor="middle">interviewer</text>
+    <!-- guest (right) -->
+    <circle cx="376" cy="298" r="26" fill="#57606a"/>
+    <path d="M 336 360 q 40 -46 80 0 Z" fill="#57606a"/>
+    <text x="376" y="378" font-size="13" fill="#57606a" text-anchor="middle">guest</text>
+
+    <!-- naive center-crop region: 9:16 rect dropped in the middle -->
+    <rect x="192" y="150" width="133" height="236" fill="#cf222e" fill-opacity="0.08" stroke="#cf222e" stroke-width="2.5" stroke-dasharray="7 6"/>
+    <text x="258" y="270" font-size="12" font-weight="600" fill="#cf222e" text-anchor="middle">naive</text>
+    <text x="258" y="286" font-size="12" font-weight="600" fill="#cf222e" text-anchor="middle">9:16 crop</text>
+
+    <text x="258" y="418" font-size="15" font-weight="600" fill="#1f2328" text-anchor="middle">16:9 source &#8212; wide two-shot</text>
+    <text x="258" y="438" font-size="13" fill="#656d76" text-anchor="middle">both people at the table, far apart</text>
+  </g>
+
+  <!-- arrows from A to the two outcomes -->
+  <g stroke="#8c959f" stroke-width="2.5" fill="none">
+    <path d="M 480 210 C 560 210 560 150 636 150" marker-end="url(#arrow)"/>
+    <path d="M 480 326 C 560 326 560 400 636 400" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+
+  <!-- ===================== Panel B: naive 9:16 result (fails) ===================== -->
+  <g>
+    <rect x="648" y="94" width="122" height="216" rx="8" fill="#fff5f5" stroke="#cf222e" stroke-width="2.5"/>
+    <!-- mostly empty; slivers of shoulders at the edges -->
+    <path d="M 648 300 q 14 -30 30 -30 v 40 h -30 Z" fill="#d1c4c4"/>
+    <path d="M 770 300 q -14 -30 -30 -30 v 40 h 30 Z" fill="#d1c4c4"/>
+    <text x="709" y="196" font-size="13" fill="#a24a4a" text-anchor="middle">empty</text>
+    <text x="709" y="214" font-size="13" fill="#a24a4a" text-anchor="middle">center</text>
+    <!-- x badge -->
+    <circle cx="770" cy="94" r="16" fill="#cf222e"/>
+    <path d="M 763 87 l 14 14 M 777 87 l -14 14" stroke="#ffffff" stroke-width="2.5"/>
+
+    <text x="709" y="336" font-size="15" font-weight="600" fill="#cf222e" text-anchor="middle">naive 9:16</text>
+    <text x="709" y="356" font-size="13" fill="#656d76" text-anchor="middle">misses both speakers</text>
+  </g>
+
+  <!-- ===================== Panel C: stacked split-screen (works) ===================== -->
+  <g>
+    <rect x="648" y="380" width="122" height="216" rx="8" fill="#f2fdf5" stroke="#1a7f37" stroke-width="2.5"/>
+    <!-- divider -->
+    <line x1="648" y1="488" x2="770" y2="488" stroke="#1a7f37" stroke-width="2" stroke-dasharray="5 5"/>
+    <!-- top half: interviewer filling -->
+    <circle cx="709" cy="432" r="26" fill="#3fb950"/>
+    <path d="M 668 486 q 41 -40 82 0 Z" fill="#3fb950"/>
+    <text x="709" y="470" font-size="11" fill="#0f5323" text-anchor="middle">interviewer</text>
+    <!-- bottom half: guest filling -->
+    <circle cx="709" cy="540" r="26" fill="#2da44e"/>
+    <path d="M 668 594 q 41 -40 82 0 Z" fill="#2da44e"/>
+    <text x="709" y="578" font-size="11" fill="#0f5323" text-anchor="middle">guest</text>
+    <!-- check badge -->
+    <circle cx="770" cy="380" r="16" fill="#1a7f37"/>
+    <path d="M 763 380 l 5 6 l 9 -11" stroke="#ffffff" stroke-width="2.8" fill="none"/>
+  </g>
+  <!-- caption for split result placed to the right so it doesn't collide -->
+  <text x="850" y="484" font-size="15" font-weight="600" fill="#1a7f37">stacked split-screen</text>
+  <text x="850" y="506" font-size="13" fill="#656d76">interviewer on top,</text>
+  <text x="850" y="524" font-size="13" fill="#656d76">guest on the bottom &#8212;</text>
+  <text x="850" y="542" font-size="13" fill="#656d76">each fills half the frame</text>
+</svg>
