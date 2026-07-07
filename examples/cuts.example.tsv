@@ -1,0 +1,20 @@
+# cuts.tsv — cut definitions. TAB-separated. Copy to pipeline/cuts.tsv and fill in.
+# Blank lines and lines starting with # are ignored.
+#
+# Columns (the header row below is required; extra columns are ignored):
+#   ep        episode label; also the per-episode output folder name (e.g. EP01)
+#   source    video filename; looked up in <dir>/<source> or <dir>/<ep>/<source>
+#   start     start timestamp HH:MM:SS[.mmm]  (ignored if 'segments' is set)
+#   end       end timestamp                    (ignored if 'segments' is set)
+#   title     short title for the cut (used in the .docx)
+#   quote     the quotable line (used in the .docx)
+#   theme     topic/tag
+#   why       one line: why this cut was chosen (see criteria.md)
+#   score     0-10 rubric score
+#   cx        OPTIONAL 0-1 horizontal face center for the 9:16 crop (else default 0.5)
+#   segments  OPTIONAL 'start->end;start->end' to STITCH complementary pieces into one cut
+#
+# Timestamps refer to the ORIGINAL episode video (the .vtt/.txt share its basename).
+ep	source	start	end	title	quote	theme	why	score	cx	segments
+EP01	EP01.mp4	00:12:30	00:13:10	The one-liner that lands	Do the boring thing consistently.	Habits	Strong hook + quotable close	9	0.5
+EP01	EP01.mp4	00:24:05	00:25:40	Full story, stitched	It failed, and that was the lesson.	Story	Two nearby pieces complete one arc	8	0.5	00:24:05->00:24:35;00:25:02->00:25:40

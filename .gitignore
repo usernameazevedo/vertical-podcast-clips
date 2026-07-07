@@ -1,0 +1,27 @@
+# media / renders (never commit client footage or outputs)
+*.mp4
+*.mov
+*.mkv
+*.mp3
+*.m4a
+*.wav
+*.jpg
+*.jpeg
+*.png
+# transcripts / cut definitions with real content
+*.vtt
+*.txt
+*.srt
+*.docx
+pipeline/cuts.tsv
+# per-episode output folders
+EP*/
+# logs / temp
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+# keep the example + docs (whitelist)
+!examples/cuts.example.tsv
+!README*.md
+!criteria*.md
