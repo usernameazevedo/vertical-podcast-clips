@@ -34,7 +34,9 @@ import argparse, os, re, shutil, subprocess, sys, tempfile
 
 FF = os.environ.get("FFMPEG") or shutil.which("ffmpeg") or "ffmpeg"
 FP = os.environ.get("FFPROBE") or shutil.which("ffprobe") or "ffprobe"
-ENC = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-c:a", "aac", "-b:a", "192k"]
+ENC = ["-c:v", "libx264", "-preset", "slow", "-crf", "18",
+       "-pix_fmt", "yuv420p",
+       "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart"]
 
 def dur(f):
     return float(subprocess.check_output(
@@ -68,7 +70,7 @@ def main():
     # single-person crop: full height, 9:16 wide, centered at closeup
     cw = even(H * 9 / 16)
     cx0 = max(0, min(even(W * a.closeup - cw / 2), W - cw))
-    CLOSEUP_VF = f"crop={cw}:{H}:{cx0}:0,scale=1080:1920,setsar=1"
+    CLOSEUP_VF = f"crop={cw}:{H}:{cx0}:0,scale=1080:1920:flags=lanczos,setsar=1"
 
     # split window: aspect 1080:960 = 1.125; height = split-height * frame height
     sh = even(H * a.split_height)
@@ -77,8 +79,8 @@ def main():
     def sx(cx):
         return max(0, min(even(W * cx - sw / 2), W - sw))
     SPLIT_FC = (
-        f"[0:v]crop={sw}:{sh}:{sx(top_cx)}:{sy},scale=1080:960[t];"
-        f"[0:v]crop={sw}:{sh}:{sx(bot_cx)}:{sy},scale=1080:960[b];"
+        f"[0:v]crop={sw}:{sh}:{sx(top_cx)}:{sy},scale=1080:960:flags=lanczos[t];"
+        f"[0:v]crop={sw}:{sh}:{sx(bot_cx)}:{sy},scale=1080:960:flags=lanczos[b];"
         f"[t][b]vstack[vv];[vv]setsar=1,fps=30[v]")
 
     # build the segment list: crop for gaps, split for wide ranges

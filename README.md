@@ -119,7 +119,10 @@ frame. Positions are fixed per set/camera, so you calibrate once per show.
 
 ## Notes
 
-- Encoding: `libx264 -crf 20 -preset veryfast`, AAC 192k, 1080×1920 vertical.
+- Encoding (quality-first): `libx264 -preset slow`, `-crf 18` for final/vertical
+  and `-crf 16` for the 16:9 base (it doubles as a deliverable and as the source the
+  vertical re-encodes from, so a cleaner base avoids stacked compression). AAC 192k,
+  `yuv420p`, `+faststart`, and `scale=…:flags=lanczos` for the downscale to 1080×1920.
 - The pipeline was built for a two-people-across-a-table podcast set; the split geometry
   assumes that layout (one person left, one right in the wide shot).
 - Language-agnostic: set `$LANG` for whisper; the rubric/docs ship in EN + PT.

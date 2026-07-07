@@ -33,8 +33,19 @@ import argparse, os, re, shutil, subprocess, sys
 FFMPEG = os.environ.get("FFMPEG") or shutil.which("ffmpeg") or "ffmpeg"
 FFPROBE = os.environ.get("FFPROBE") or shutil.which("ffprobe") or "ffprobe"
 
-ENC = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-       "-c:a", "aac", "-b:a", "192k"]
+# Final delivery (vertical / re-encoded output): quality-first.
+# 'slow' gives much cleaner frames than 'veryfast' at the same CRF for ~same size;
+# crf 18 leaves headroom so the platforms' own re-compression degrades less.
+ENC = ["-c:v", "libx264", "-preset", "slow", "-crf", "18",
+       "-pix_fmt", "yuv420p",
+       "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart"]
+
+# 16:9 base: it is BOTH a deliverable AND the source the vertical re-encodes from.
+# crf 16 is visually transparent as a deliverable and clean enough as a base so the
+# second (vertical) encode doesn't stack artifacts (generational loss).
+ENC_BASE = ["-c:v", "libx264", "-preset", "slow", "-crf", "16",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "256k", "-movflags", "+faststart"]
 
 # 9:16 'crop': full-height 9:16 window centered on the speaker (locked camera).
 # Horizontal face center per episode, as a 0-1 fraction of width. Override per
@@ -165,7 +176,7 @@ def render_horizontal(src, segs, out, dry):
     """Render 1+ segments concatenated into a single 16:9 (one encode pass)."""
     if len(segs) == 1:
         a, b = segs[0]
-        run([FFMPEG, "-y", "-ss", str(a), "-to", str(b), "-i", src] + ENC + [out], dry)
+        run([FFMPEG, "-y", "-ss", str(a), "-to", str(b), "-i", src] + ENC_BASE + [out], dry)
         return
     cmd = [FFMPEG, "-y"]
     for (a, b) in segs:
@@ -173,7 +184,7 @@ def render_horizontal(src, segs, out, dry):
     n = len(segs)
     fc = "".join(f"[{i}:v:0][{i}:a:0]" for i in range(n)) + \
          f"concat=n={n}:v=1:a=1[v][a]"
-    cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "[a]"] + ENC + [out]
+    cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "[a]"] + ENC_BASE + [out]
     run(cmd, dry)
 
 def probe_wh(path, default=(3840, 2160)):
@@ -200,7 +211,7 @@ def render_vertical(cut16x9, out, srt, burn, dry, mode="crop", cx=DEFAULT_CROP_C
         cw = int(round(ih * 9 / 16)); cw -= cw % 2
         x = int(round(iw * cx - cw / 2))
         x = max(0, min(x, iw - cw)); x -= x % 2
-        vf = f"crop={cw}:{ih}:{x}:0,scale=1080:1920,setsar=1"
+        vf = f"crop={cw}:{ih}:{x}:0,scale=1080:1920:flags=lanczos,setsar=1"
         if burn_ok:
             vf += "," + _burn_suffix(srt)
         cmd = [FFMPEG, "-y", "-i", cut16x9, "-vf", vf] + ENC + [out]
