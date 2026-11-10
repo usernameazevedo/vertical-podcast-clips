@@ -92,7 +92,7 @@ fixas por set/câmera — calibra uma vez por programa.
 
 Feito por **Luis Azevedo** — disponível para freelance / consultoria em edição de podcast,
 vídeo pra redes e pipelines de automação como este.
-📬 [username.azevedo@gmail.com](mailto:username.azevedo@gmail.com)
+📬 [contato@midianoxx.com](mailto:contato@midianoxx.com)
 
 ## Licença
 

@@ -131,7 +131,7 @@ frame. Positions are fixed per set/camera, so you calibrate once per show.
 
 Built by **Luis Azevedo** — available for freelance / consulting work on podcast editing,
 short-form video, and automation pipelines like this one.
-📬 [username.azevedo@gmail.com](mailto:username.azevedo@gmail.com)
+📬 [contato@midianoxx.com](mailto:contato@midianoxx.com)
 
 ## License
 
